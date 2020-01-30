@@ -9,6 +9,8 @@ import { textBlock } from '../../lib/notion/renderers'
 import getPageData from '../../lib/notion/getPageData'
 import getBlogIndex from '../../lib/notion/getBlogIndex'
 import { getBlogLink, postSubtitle } from '../../lib/blog-helpers'
+import { TwitterTweetEmbed } from 'react-twitter-embed'
+import YouTube from 'react-youtube'
 
 // Get the data for each blog post
 export async function unstable_getStaticProps({ params: { slug } }) {
@@ -125,6 +127,17 @@ const RenderPost = ({ post, redirect }) => {
               break
             case 'image':
             case 'video': {
+              const source = properties.source[0][0]
+              if (
+                source.indexOf('youtube') != -1 ||
+                source.indexOf('youtu.be') != -1
+              ) {
+                // TODO: extremely fragile
+                console.warn(`is this really an youtube video? ${source}`)
+                toRender.push(<YouTube videoId={source.split('/')[3]} />)
+                break
+              }
+
               const { format = {} } = value
               const { block_width } = format
               const baseBlockWidth = 768
@@ -202,6 +215,13 @@ const RenderPost = ({ post, redirect }) => {
                   )
                 )
               }
+              break
+            case 'tweet':
+              // TODO: extremely hacky
+              const tweetId = properties.source[0][0]
+                .split('/')[5]
+                .split('?')[0]
+              toRender.push(<TwitterTweetEmbed tweetId={tweetId} />)
               break
             default:
               if (

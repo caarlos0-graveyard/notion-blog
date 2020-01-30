@@ -26,7 +26,12 @@ export default function queryCollection({
     ],
     filter = [],
     filter_operator = 'and',
-    sort = [],
+    sort = [
+      {
+        direction: 'descending',
+        property: 'a`af', // date
+      },
+    ],
   } = query
 
   return rpc('queryCollection', {

@@ -24,7 +24,7 @@ export default ({ titlePre = '' }) => {
           name="description"
           content="Carlos Alexandro Becker's Blog about software development and stuff"
         />
-        <meta name="og:title" content="Carlos Alexandro Becker's Blog'" />
+        <meta name="og:title" content="Carlos Alexandro Becker's Blog" />
         <meta property="og:image" content={ogImageUrl} />
         <meta name="twitter:site" content="@caarlos0" />
         <meta name="twitter:card" content="summary_large_image" />

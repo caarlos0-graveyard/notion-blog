@@ -8,8 +8,7 @@ import blogStyles from '../../styles/blog.module.css'
 import { textBlock } from '../../lib/notion/renderers'
 import getPageData from '../../lib/notion/getPageData'
 import getBlogIndex from '../../lib/notion/getBlogIndex'
-import getNotionUsers from '../../lib/notion/getNotionUsers'
-import { getBlogLink, getDateStr } from '../../lib/blog-helpers'
+import { getBlogLink, postSubtitle } from '../../lib/blog-helpers'
 
 // Get the data for each blog post
 export async function unstable_getStaticProps({ params: { slug } }) {
@@ -28,9 +27,6 @@ export async function unstable_getStaticProps({ params: { slug } }) {
   }
   const postData = await getPageData(post.id)
   post.content = postData.blocks
-
-  const { users } = await getNotionUsers(post.Authors || [])
-  post.Authors = Object.keys(users).map(id => users[id].full_name)
 
   return {
     props: {
@@ -69,12 +65,8 @@ const RenderPost = ({ post, redirect }) => {
       <Header titlePre={post.Page} />
       <div className={blogStyles.post}>
         <h1>{post.Page || ''}</h1>
-        {post.Authors.length > 0 && (
-          <div className="authors">By: {post.Authors.join(' ')}</div>
-        )}
-        {post.Date && (
-          <div className="posted">Posted: {getDateStr(post.Date)}</div>
-        )}
+
+        <div className={blogStyles.posted}>{postSubtitle(post)}</div>
 
         <hr />
 

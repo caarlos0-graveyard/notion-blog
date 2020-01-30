@@ -13,7 +13,8 @@
 .postPreview {
   max-width: 600px;
   margin: 10px auto;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.8);
+  border: solid rgba(0, 0, 0, 0.1);
+  border-width: 1px 0 0;
 }
 
 .postPreview:last-child {
@@ -42,8 +43,9 @@
   display: block;
 }
 
-.postPreview :global(.posted) {
-  margin-bottom: 0.5em;
+.posted {
+  margin: 0.5em 0;
+  color: #777;
 }
 
 .post {

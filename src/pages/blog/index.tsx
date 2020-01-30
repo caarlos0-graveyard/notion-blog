@@ -4,15 +4,13 @@ import Header from '../../components/header'
 import blogStyles from '../../styles/blog.module.css'
 import sharedStyles from '../../styles/shared.module.css'
 
-import { getBlogLink, getDateStr, postIsReady } from '../../lib/blog-helpers'
+import { getBlogLink, postIsReady, postSubtitle } from '../../lib/blog-helpers'
 import { textBlock } from '../../lib/notion/renderers'
-import getNotionUsers from '../../lib/notion/getNotionUsers'
 import getBlogIndex from '../../lib/notion/getBlogIndex'
 
 export async function unstable_getStaticProps() {
   const postsTable = await getBlogIndex()
 
-  const authorsToGet: Set<string> = new Set()
   const posts: any[] = Object.keys(postsTable)
     .map(slug => {
       const post = postsTable[slug]
@@ -20,19 +18,9 @@ export async function unstable_getStaticProps() {
       if (!postIsReady(post)) {
         return null
       }
-      post.Authors = post.Authors || []
-      for (const author of post.Authors) {
-        authorsToGet.add(author)
-      }
       return post
     })
     .filter(Boolean)
-
-  const { users } = await getNotionUsers([...authorsToGet])
-
-  posts.map(post => {
-    post.Authors = post.Authors.map(id => users[id].full_name)
-  })
 
   return {
     props: {
@@ -47,7 +35,7 @@ export default ({ posts = [] }) => {
     <>
       <Header titlePre="Blog" />
       <div className={`${sharedStyles.layout} ${blogStyles.blogIndex}`}>
-        <h1>My Notion Blog</h1>
+        <h1>Posts</h1>
         {posts.length === 0 && (
           <p className={blogStyles.noPosts}>There are no posts yet</p>
         )}
@@ -59,12 +47,7 @@ export default ({ posts = [] }) => {
                   <a>{post.Page}</a>
                 </Link>
               </h3>
-              {post.Authors.length > 0 && (
-                <div className="authors">By: {post.Authors.join(' ')}</div>
-              )}
-              {post.Date && (
-                <div className="posted">Posted: {getDateStr(post.Date)}</div>
-              )}
+              <div className={blogStyles.posted}>{postSubtitle(post)}</div>
               <p>
                 {(!post.preview || post.preview.length === 0) &&
                   'No preview available'}

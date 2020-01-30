@@ -100,16 +100,37 @@ async function main() {
               name: 'Default View',
               format: {
                 table_properties: [
-                  { property: 'title', visible: true, width: 276 },
-                  { property: 'S6_"', visible: true },
-                  { property: 'la`A', visible: true },
-                  { property: 'a`af', visible: true },
-                  { property: 'ijjk', visible: true },
+                  {
+                    property: 'title',
+                    visible: true,
+                    width: 276,
+                  },
+                  {
+                    property: 'S6_"',
+                    visible: true,
+                  },
+                  {
+                    property: 'la`A',
+                    visible: true,
+                  },
+                  {
+                    property: 'a`af',
+                    visible: true,
+                  },
+                  {
+                    property: 'ijjk',
+                    visible: true,
+                  },
                 ],
                 table_wrap: true,
               },
               query2: {
-                aggregations: [{ property: 'title', aggregator: 'count' }],
+                aggregations: [
+                  {
+                    property: 'title',
+                    aggregator: 'count',
+                  },
+                ],
               },
               page_sort: [pageId1, pageId2, pageId3],
               parent_id: collectionId,
@@ -125,18 +146,41 @@ async function main() {
             args: {
               id: collectionViewId,
               schema: {
-                title: { name: 'Page', type: 'title' },
-                'S6_"': { name: 'Slug', type: 'text' },
-                'la`A': { name: 'Published', type: 'checkbox' },
-                'a`af': { name: 'Date', type: 'date' },
-                ijjk: { name: 'Authors', type: 'person' },
+                title: {
+                  name: 'Page',
+                  type: 'title',
+                },
+                'S6_"': {
+                  name: 'Slug',
+                  type: 'text',
+                },
+                'la`A': {
+                  name: 'Published',
+                  type: 'checkbox',
+                },
+                'a`af': {
+                  name: 'Date',
+                  type: 'date',
+                },
               },
               format: {
                 collection_page_properties: [
-                  { property: 'S6_"', visible: true },
-                  { property: 'la`A', visible: true },
-                  { property: 'a`af', visible: true },
-                  { property: 'ijjk', visible: true },
+                  {
+                    property: 'S6_"',
+                    visible: true,
+                  },
+                  {
+                    property: 'la`A',
+                    visible: true,
+                  },
+                  {
+                    property: 'a`af',
+                    visible: true,
+                  },
+                  {
+                    property: 'ijjk',
+                    visible: true,
+                  },
                 ],
               },
               parent_id: collectionId,
@@ -149,7 +193,11 @@ async function main() {
             table: 'block',
             path: [],
             command: 'update',
-            args: { parent_id: pageId, parent_table: 'block', alive: true },
+            args: {
+              parent_id: pageId,
+              parent_table: 'block',
+              alive: true,
+            },
           },
           {
             table: 'block',
@@ -334,7 +382,9 @@ async function getExistingexistingBlockId() {
     body: JSON.stringify({
       pageId,
       limit: 25,
-      cursor: { stack: [] },
+      cursor: {
+        stack: [],
+      },
       chunkNumber: 0,
       verticalColumns: false,
     }),

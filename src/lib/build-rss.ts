@@ -47,7 +47,6 @@ function mapToEntry(post) {
           </p>
         </div>
       </content>
-      ${(post.authors || []).map(mapToAuthor).join('\n      ')}
     </entry>`
 }
 
@@ -60,37 +59,27 @@ function createRSS(blogPosts = []) {
 
   return `<?xml version="1.0" encoding="utf-8"?>
   <feed xmlns="http://www.w3.org/2005/Atom">
-    <title>My Blog</title>
+    <title>Blog</title>
     <subtitle>Blog</subtitle>
     <link href="/atom" rel="self" type="application/rss+xml"/>
     <link href="/" />
     <updated>${NOW}</updated>
-    <id>My Notion Blog</id>${postsString}
+    <id>Blog</id>${postsString}
   </feed>`
 }
 
 async function main() {
   const postsTable = await getBlogIndex(true)
-  const neededAuthors = new Set<string>()
 
   const blogPosts = Object.keys(postsTable)
     .map(slug => {
       const post = postsTable[slug]
       if (!postIsReady(post)) return
-
-      post.authors = post.Authors || []
-
-      for (const author of post.authors) {
-        neededAuthors.add(author)
-      }
       return post
     })
     .filter(Boolean)
 
-  const { users } = await getNotionUsers([...neededAuthors])
-
   blogPosts.forEach(post => {
-    post.authors = post.authors.map(id => users[id])
     post.link = getBlogLink(post.Slug)
     post.title = post.Page
     post.date = post.Date

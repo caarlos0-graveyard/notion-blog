@@ -1,6 +1,5 @@
 .layout img {
   margin: auto;
-  max-width: 98%;
   display: block;
   height: auto;
 }
@@ -8,4 +7,9 @@
 .layout h1,
 .layout h2 {
   text-align: center;
+}
+
+.avatar {
+  box-shadow: #707880 0px 0px 5px;
+  border-radius: 200px;
 }

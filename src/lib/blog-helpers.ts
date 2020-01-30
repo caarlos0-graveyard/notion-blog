@@ -28,3 +28,7 @@ export const normalizeSlug = slug => {
   }
   return startingSlash || endingSlash ? normalizeSlug(slug) : slug
 }
+
+export const postSubtitle = post => {
+  return [post.City, getDateStr(post.Date)].filter(x => x).join(' - ')
+}

@@ -198,7 +198,7 @@ const RenderPost = ({ post, redirect }) => {
                   React.createElement(
                     components.blockquote,
                     { key: id },
-                    properties.title
+                    textBlock(properties.title, false, id)
                   )
                 )
               }

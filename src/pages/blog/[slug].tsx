@@ -251,7 +251,12 @@ const RenderPost = ({ post, redirect }) => {
               const tweetId = properties.source[0][0]
                 .split('/')[5]
                 .split('?')[0]
-              toRender.push(<TwitterTweetEmbed tweetId={tweetId} />)
+              toRender.push(
+                <TwitterTweetEmbed
+                  tweetId={tweetId}
+                  placeholder={<a href={properties.source[0][0]}>See tweet.</a>}
+                />
+              )
               break
             default:
               if (

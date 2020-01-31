@@ -10,7 +10,8 @@
   --accents-2: #333;
   --accents-3: #666;
   --accents-4: #888;
-  --main-1: #272054;
+  --main-1: #0070f3;
+  --main-2: #3291ff;
   --geist-foreground: #000;
 
   --radius: 8px;
@@ -62,12 +63,16 @@ figure {
 }
 
 a {
-  color: #0070f3;
+  color: var(--main-1);
   text-decoration: none;
 }
 
 a:hover {
-  color: #3291ff;
+  color: var(--main-2);
+}
+
+p > a {
+  border-bottom: 1px dotted #ddd;
 }
 
 .links {

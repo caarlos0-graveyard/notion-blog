@@ -6,6 +6,10 @@
   margin-bottom: 50px;
 }
 
+.blogIndex h3 a {
+  color: var(--accents-3);
+}
+
 .noPosts {
   text-align: center;
 }
@@ -61,4 +65,16 @@
 
 .post :global(a + p) {
   margin-top: 0;
+}
+
+.post li {
+  list-style-type: none;
+}
+
+.post li::before {
+  content: '–';
+  display: inline-block;
+  color: var(--accents-4);
+  position: absolute;
+  margin-left: -15px;
 }

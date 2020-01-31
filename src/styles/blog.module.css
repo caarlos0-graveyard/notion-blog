@@ -52,6 +52,7 @@
   max-width: calc(600px + 10%);
   margin: 0 auto;
   padding: 5%;
+  text-align: justify;
 }
 
 .post :global(hr) {

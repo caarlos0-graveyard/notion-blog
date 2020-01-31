@@ -35,7 +35,7 @@ const contacts = [
 export default () => (
   <>
     <Header titlePre="Contact" />
-    <div className={sharedStyles.layout}>
+    <div className={`${sharedStyles.layout} ${sharedStyles.layoutPadTop}`}>
       <div className={contactStyles.avatar}>
         <img
           src="https://github.com/caarlos0.png"

@@ -4,7 +4,7 @@ import sharedStyles from '../styles/shared.module.css'
 export default () => (
   <>
     <Header titlePre="Home" />
-    <div className={sharedStyles.layout}>
+    <div className={`${sharedStyles.layout} ${sharedStyles.layoutPadTop}`}>
       <img
         className={sharedStyles.avatar}
         src="https://github.com/caarlos0.png"

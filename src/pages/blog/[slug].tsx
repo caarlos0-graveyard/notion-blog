@@ -9,7 +9,7 @@ import { textBlock } from '../../lib/notion/renderers'
 import getPageData from '../../lib/notion/getPageData'
 import getBlogIndex from '../../lib/notion/getBlogIndex'
 import { getBlogLink, postSubtitle } from '../../lib/blog-helpers'
-import { TwitterTweetEmbed } from 'react-twitter-embed'
+import fetch from 'node-fetch'
 import YouTube from 'react-youtube'
 
 // Get the data for each blog post
@@ -30,9 +30,27 @@ export async function unstable_getStaticProps({ params: { slug } }) {
   const postData = await getPageData(post.id)
   post.content = postData.blocks
 
+  var tweets = {}
+  for (let i = 0; i < postData.blocks.length; i++) {
+    const { value } = postData.blocks[i]
+    const { type, properties } = value
+    if (type == 'tweet') {
+      // TODO: extremely hacky
+      const src = properties.source[0][0]
+      const tweetId = src.split('/')[5].split('?')[0]
+
+      const res = await fetch(
+        `https://api.twitter.com/1/statuses/oembed.json?id=${tweetId}`
+      )
+      const json = await res.json()
+      tweets[src] = json.html
+    }
+  }
+
   return {
     props: {
       post,
+      tweets,
     },
     revalidate: 10,
   }
@@ -46,7 +64,7 @@ export async function unstable_getStaticPaths() {
 
 const listTypes = new Set(['bulleted_list', 'numbered_list'])
 
-const RenderPost = ({ post, redirect }) => {
+const RenderPost = ({ post, tweets, redirect }) => {
   let listTagName: string | null = null
   let listLastId: string | null = null
   let listMap: {
@@ -247,16 +265,14 @@ const RenderPost = ({ post, redirect }) => {
               }
               break
             case 'tweet':
-              // TODO: extremely hacky
-              const tweetId = properties.source[0][0]
-                .split('/')[5]
-                .split('?')[0]
-              toRender.push(
-                <TwitterTweetEmbed
-                  tweetId={tweetId}
-                  placeholder={<a href={properties.source[0][0]}>See tweet.</a>}
-                />
-              )
+              const src = properties.source[0][0]
+              if (src in tweets) {
+                toRender.push(
+                  <div dangerouslySetInnerHTML={{ __html: tweets[src] }} />
+                )
+                break
+              }
+              console.warn(`didnt preload ${src}`)
               break
             default:
               if (

@@ -6,7 +6,10 @@ import { getPostPreview } from './getPostPreview'
 import { readFile, writeFile } from '../fs-helpers'
 import { BLOG_INDEX_ID, BLOG_INDEX_CACHE } from './server-constants'
 
-export default async function getBlogIndex(previews = true) {
+export default async function getBlogIndex(
+  previews = true,
+  collection_index = 0
+) {
   let postsTable: any = null
   const isProd = process.env.NODE_ENV === 'production'
   const cacheFile = `${BLOG_INDEX_CACHE}${previews ? '_previews' : ''}`
@@ -30,10 +33,17 @@ export default async function getBlogIndex(previews = true) {
       })
 
       // Parse table with posts
-      const tableBlock = values(data.recordMap.block).find(
+      const tableBlocks = values(data.recordMap.block).filter(
         (block: any) => block.value.type === 'collection_view'
       )
 
+      if (tableBlocks.length < collection_index) {
+        console.warn(
+          `Failed to load Notion collection, wanted ${collection_index} but found only ${tableBlocks.length}`
+        )
+      }
+
+      const tableBlock = tableBlocks[collection_index]
       postsTable = await getTableData(tableBlock, true)
     } catch (err) {
       console.warn(

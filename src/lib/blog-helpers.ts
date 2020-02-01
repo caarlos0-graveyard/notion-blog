@@ -1,4 +1,6 @@
 import fetch from 'node-fetch'
+import getPageData from '../lib/notion/getPageData'
+import getBlogIndex from '../lib/notion/getBlogIndex'
 
 export const getBlogLink = (slug: string) => {
   return `/posts/${slug}`
@@ -38,4 +40,17 @@ export const loadTweet = async url => {
   )
   const json = await res.json()
   return json.html
+}
+
+export const loadTweets = async page => {
+  var tweets = {}
+  for (let i = 0; i < page.content.length; i++) {
+    const { value } = page.content[i]
+    const { type, properties } = value
+    if (type == 'tweet') {
+      const src = properties.source[0][0]
+      tweets[src] = await loadTweet(src)
+    }
+  }
+  return tweets
 }

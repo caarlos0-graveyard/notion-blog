@@ -1,15 +1,13 @@
 import Link from 'next/link'
 import Head from 'next/head'
-import ExtLink from './ext-link'
 import { useRouter } from 'next/router'
 import styles from '../styles/header.module.css'
 
 const navItems: { label: string; page: string }[] = [
   { label: 'Home', page: '/' },
   { label: 'Posts', page: '/posts' },
-  // { label: 'Contact', page: '/contact' },
-  { label: 'Talks', page: '/_/talks' },
-  { label: 'About', page: '/_/about' },
+  { label: 'Talks', page: '/talks' },
+  { label: 'About', page: '/about' },
 ]
 
 const isActive = (page, pathname) => {

@@ -4,18 +4,15 @@ import Header from '../../components/header'
 import Content from '../../components/content'
 import ExtLink from '../../components/ext-link'
 import blogStyles from '../../styles/blog.module.css'
-import getPageData from '../../lib/notion/getPageData'
 import getBlogIndex from '../../lib/notion/getBlogIndex'
-import { getBlogLink, getDateStr, loadTweet } from '../../lib/blog-helpers'
+import loadPage from '../../lib/notion/loadPage'
+import { loadTweets, getBlogLink, getDateStr } from '../../lib/blog-helpers'
 
-// Get the data for each blog post
 export async function unstable_getStaticProps({ params: { slug } }) {
-  // load the postsTable so that we can get the page's ID
-  const postsTable = await getBlogIndex()
-  const post = postsTable[slug]
+  const page = await loadPage(slug, 0)
 
-  if (!post) {
-    console.log(`Failed to find post for slug: ${slug}`)
+  if (!page) {
+    console.log(`Failed to find page for slug: ${slug}`)
     return {
       props: {
         redirect: '/posts',
@@ -23,22 +20,12 @@ export async function unstable_getStaticProps({ params: { slug } }) {
       revalidate: 5,
     }
   }
-  const postData = await getPageData(post.id)
-  post.content = postData.blocks
 
-  var tweets = {}
-  for (let i = 0; i < postData.blocks.length; i++) {
-    const { value } = postData.blocks[i]
-    const { type, properties } = value
-    if (type == 'tweet') {
-      const src = properties.source[0][0]
-      tweets[src] = await loadTweet(src)
-    }
-  }
+  const tweets = await loadTweets(page)
 
   return {
     props: {
-      post,
+      page,
       tweets,
     },
     revalidate: 10,
@@ -54,17 +41,6 @@ export async function unstable_getStaticPaths() {
 const listTypes = new Set(['bulleted_list', 'numbered_list'])
 
 const RenderPost = ({ post, tweets, redirect }) => {
-  let listTagName: string | null = null
-  let listLastId: string | null = null
-  let listMap: {
-    [id: string]: {
-      key: string
-      isNested?: boolean
-      nested: string[]
-      children: React.ReactFragment
-    }
-  } = {}
-
   if (redirect) {
     return (
       <>

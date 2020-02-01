@@ -9,9 +9,9 @@ import loadPage from '../../lib/notion/loadPage'
 import { loadTweets, getBlogLink, getDateStr } from '../../lib/blog-helpers'
 
 export async function unstable_getStaticProps({ params: { slug } }) {
-  const page = await loadPage(slug, 0)
+  const post = await loadPage(slug, 0)
 
-  if (!page) {
+  if (!post) {
     console.log(`Failed to find page for slug: ${slug}`)
     return {
       props: {
@@ -21,11 +21,11 @@ export async function unstable_getStaticProps({ params: { slug } }) {
     }
   }
 
-  const tweets = await loadTweets(page)
+  const tweets = await loadTweets(post)
 
   return {
     props: {
-      page,
+      post,
       tweets,
     },
     revalidate: 10,
@@ -37,8 +37,6 @@ export async function unstable_getStaticPaths() {
   const postsTable = await getBlogIndex()
   return Object.keys(postsTable).map(slug => getBlogLink(slug))
 }
-
-const listTypes = new Set(['bulleted_list', 'numbered_list'])
 
 const RenderPost = ({ post, tweets, redirect }) => {
   if (redirect) {

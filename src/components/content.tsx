@@ -209,6 +209,7 @@ export default props => {
                 <ExtLink href={href}>{txt}</ExtLink>
               </p>
             )
+            break
           default:
             if (process.env.NODE_ENV !== 'production' && !listTypes.has(type)) {
               console.log('unknown type', type)

@@ -2,8 +2,9 @@ import React from 'react'
 import Head from 'next/head'
 import Header from '../components/header'
 import Content from '../components/content'
-import blogStyles from '../styles/blog.module.css'
 import loadPage from '../lib/notion/loadPage'
+
+import sharedStyles from '../styles/shared.module.css'
 
 export async function unstable_getStaticProps() {
   const page = await loadPage('talks', 1)
@@ -20,7 +21,7 @@ const RenderPage = ({ page }) => {
   return (
     <>
       <Header titlePre={page.Page} />
-      <div className={blogStyles.post}>
+      <div className={`${sharedStyles.layout} ${sharedStyles.layoutPadTop}`}>
         <h1>{page.Page || ''}</h1>
 
         <hr />

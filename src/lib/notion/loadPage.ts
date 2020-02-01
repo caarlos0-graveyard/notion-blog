@@ -2,8 +2,7 @@ import getBlogIndex from './getBlogIndex'
 import getPageData from './getPageData'
 
 export default async function loadPage(slug, idx) {
-  // load the table so that we can get the page's ID
-  const table = await getBlogIndex(true, idx)
+  const table = await getBlogIndex(false, idx)
   const page = table[slug]
 
   if (!page) {

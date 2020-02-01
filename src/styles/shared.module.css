@@ -3,18 +3,24 @@
   margin-bottom: 10vh;
 }
 
-.layout img {
-  margin: auto;
-  display: block;
-  height: auto;
+.layout {
+  max-width: calc(600px + 10%);
+  margin: 0 auto;
 }
 
-.layout h1,
-.layout h2 {
+.layout img {
+  margin: 0 auto;
+  display: block;
+  max-width: 100%;
+  border-radius: var(--radius);
+}
+
+.layout.center h1,
+.layout.center h2 {
   text-align: center;
 }
 
-.avatar {
+.layout.center .avatar {
   box-shadow: #707880 0px 0px 5px;
-  border-radius: 200px;
+  border-radius: 100%;
 }

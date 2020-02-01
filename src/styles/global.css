@@ -139,7 +139,8 @@ pre code {
   -webkit-overflow-scrolling: touch;
 }
 
-pre :global(code) {
+pre :global(code),
+pre > code {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 }

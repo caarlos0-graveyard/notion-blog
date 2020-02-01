@@ -2,16 +2,11 @@ import React from 'react'
 import Head from 'next/head'
 import Header from '../../components/header'
 import Content from '../../components/content'
-import Heading from '../../components/heading'
-import components from '../../components/dynamic'
 import ExtLink from '../../components/ext-link'
-import ReactJSXParser from '@zeit/react-jsx-parser'
 import blogStyles from '../../styles/blog.module.css'
-import { textBlock } from '../../lib/notion/renderers'
 import getPageData from '../../lib/notion/getPageData'
 import getBlogIndex from '../../lib/notion/getBlogIndex'
 import { getBlogLink, getDateStr, loadTweet } from '../../lib/blog-helpers'
-import YouTube from 'react-youtube'
 
 // Get the data for each blog post
 export async function unstable_getStaticProps({ params: { slug } }) {

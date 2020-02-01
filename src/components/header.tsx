@@ -7,7 +7,9 @@ import styles from '../styles/header.module.css'
 const navItems: { label: string; page: string }[] = [
   { label: 'Home', page: '/' },
   { label: 'Posts', page: '/posts' },
-  { label: 'Contact', page: '/contact' },
+  // { label: 'Contact', page: '/contact' },
+  { label: 'Talks', page: '/_/talks' },
+  { label: 'About', page: '/_/about' },
 ]
 
 const isActive = (page, pathname) => {
@@ -17,7 +19,7 @@ const isActive = (page, pathname) => {
 const ogImageUrl = 'https://beta.caarlos0.dev/og-image.png'
 
 export default ({ titlePre = '' }) => {
-  const { pathname } = useRouter()
+  const { asPath } = useRouter()
 
   return (
     <header className={styles.header}>
@@ -37,7 +39,7 @@ export default ({ titlePre = '' }) => {
         {navItems.map(({ label, page }) => (
           <li key={label}>
             <Link href={page}>
-              <a className={isActive(page, pathname) ? 'active' : undefined}>
+              <a className={isActive(page, asPath) ? 'active' : undefined}>
                 {label}
               </a>
             </Link>

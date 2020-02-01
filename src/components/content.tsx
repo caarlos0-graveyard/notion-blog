@@ -1,6 +1,7 @@
 import React from 'react'
 import Heading from './heading'
 import components from './dynamic'
+import ExtLink from './ext-link'
 import ReactJSXParser from '@zeit/react-jsx-parser'
 import { textBlock } from '../lib/notion/renderers'
 import YouTube from 'react-youtube'
@@ -194,6 +195,20 @@ export default props => {
             }
             console.warn(`didnt preload ${src}`)
             break
+          case 'embed':
+            const href = properties.source[0][0]
+            let txt = 'See on website'
+            if (
+              href.indexOf('speakerdeck') > -1 ||
+              href.indexOf('slides') > -1
+            ) {
+              txt = 'See slides'
+            }
+            toRender.push(
+              <p>
+                <ExtLink href={href}>{txt}</ExtLink>
+              </p>
+            )
           default:
             if (process.env.NODE_ENV !== 'production' && !listTypes.has(type)) {
               console.log('unknown type', type)

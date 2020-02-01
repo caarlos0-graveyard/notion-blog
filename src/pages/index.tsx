@@ -35,7 +35,9 @@ const contacts = [
 export default () => (
   <>
     <Header titlePre="Home" />
-    <div className={`${sharedStyles.layout} ${sharedStyles.layoutPadTop}`}>
+    <div
+      className={`${sharedStyles.layout} ${sharedStyles.layoutPadTop} ${sharedStyles.center}`}
+    >
       <img
         className={sharedStyles.avatar}
         src="/avatar.png"

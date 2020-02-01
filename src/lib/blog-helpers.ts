@@ -1,5 +1,7 @@
+import fetch from 'node-fetch'
+
 export const getBlogLink = (slug: string) => {
-  return `/blog/${slug}`
+  return `/posts/${slug}`
 }
 
 export const getDateStr = date => {
@@ -31,4 +33,13 @@ export const normalizeSlug = slug => {
 
 export const postSubtitle = post => {
   return [post.City, getDateStr(post.Date)].filter(x => x).join(' - ')
+}
+
+export const loadTweet = async url => {
+  const tweetId = url.split('/')[5].split('?')[0]
+  const res = await fetch(
+    `https://api.twitter.com/1/statuses/oembed.json?id=${tweetId}`
+  )
+  const json = await res.json()
+  return json.html
 }

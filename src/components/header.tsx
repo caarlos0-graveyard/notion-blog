@@ -4,14 +4,17 @@ import ExtLink from './ext-link'
 import { useRouter } from 'next/router'
 import styles from '../styles/header.module.css'
 
-const navItems: { label: string; page?: string; link?: string }[] = [
+const navItems: { label: string; page: string }[] = [
   { label: 'Home', page: '/' },
-  { label: 'Blog', page: '/blog' },
+  { label: 'Posts', page: '/posts' },
   { label: 'Contact', page: '/contact' },
 ]
 
-const ogImageUrl =
-  'https://og.caarlos0.dev/Carlos%20Becker%20%7C%20**caarlos0**.png?theme=light&md=1&fontSize=100px&images=https://github.com/caarlos0.png'
+const isActive = (page, pathname) => {
+  return pathname === page || (page === '/posts' && pathname.startsWith(page))
+}
+
+const ogImageUrl = 'https://beta.caarlos0.dev/og-image.png'
 
 export default ({ titlePre = '' }) => {
   const { pathname } = useRouter()
@@ -31,24 +34,13 @@ export default ({ titlePre = '' }) => {
         <meta name="twitter:image" content={ogImageUrl} />
       </Head>
       <ul>
-        {navItems.map(({ label, page, link }) => (
+        {navItems.map(({ label, page }) => (
           <li key={label}>
-            {page ? (
-              <Link href={page}>
-                <a
-                  className={
-                    pathname === page ||
-                    (page === '/blog' && pathname.startsWith(page))
-                      ? 'active'
-                      : undefined
-                  }
-                >
-                  {label}
-                </a>
-              </Link>
-            ) : (
-              <ExtLink href={link}>{label}</ExtLink>
-            )}
+            <Link href={page}>
+              <a className={isActive(page, pathname) ? 'active' : undefined}>
+                {label}
+              </a>
+            </Link>
           </li>
         ))}
       </ul>

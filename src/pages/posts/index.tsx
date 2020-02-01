@@ -4,7 +4,7 @@ import Header from '../../components/header'
 import blogStyles from '../../styles/blog.module.css'
 import sharedStyles from '../../styles/shared.module.css'
 
-import { getBlogLink, postIsReady, postSubtitle } from '../../lib/blog-helpers'
+import { getBlogLink, postIsReady, getDateStr } from '../../lib/blog-helpers'
 import { textBlock } from '../../lib/notion/renderers'
 import getBlogIndex from '../../lib/notion/getBlogIndex'
 
@@ -43,11 +43,11 @@ export default ({ posts = [] }) => {
           return (
             <div className={blogStyles.postPreview} key={post.Slug}>
               <h3>
-                <Link href="/blog/[slug]" as={getBlogLink(post.Slug)}>
+                <Link href="/posts/[slug]" as={getBlogLink(post.Slug)}>
                   <a>{post.Page}</a>
                 </Link>
               </h3>
-              <div className={blogStyles.posted}>{postSubtitle(post)}</div>
+              <div className={blogStyles.posted}>{getDateStr(post.Date)}</div>
               <p>
                 {(post.preview || []).map((block, idx) =>
                   textBlock(block, true, `${post.Slug}${idx}`)

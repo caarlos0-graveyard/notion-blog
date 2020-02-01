@@ -8,8 +8,7 @@ import blogStyles from '../../styles/blog.module.css'
 import { textBlock } from '../../lib/notion/renderers'
 import getPageData from '../../lib/notion/getPageData'
 import getBlogIndex from '../../lib/notion/getBlogIndex'
-import { getBlogLink, postSubtitle } from '../../lib/blog-helpers'
-import fetch from 'node-fetch'
+import { getBlogLink, postSubtitle, loadTweet } from '../../lib/blog-helpers'
 import YouTube from 'react-youtube'
 
 // Get the data for each blog post
@@ -35,15 +34,8 @@ export async function unstable_getStaticProps({ params: { slug } }) {
     const { value } = postData.blocks[i]
     const { type, properties } = value
     if (type == 'tweet') {
-      // TODO: extremely hacky
       const src = properties.source[0][0]
-      const tweetId = src.split('/')[5].split('?')[0]
-
-      const res = await fetch(
-        `https://api.twitter.com/1/statuses/oembed.json?id=${tweetId}`
-      )
-      const json = await res.json()
-      tweets[src] = json.html
+      tweets[src] = await loadTweet(src)
     }
   }
 

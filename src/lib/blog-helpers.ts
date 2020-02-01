@@ -31,10 +31,6 @@ export const normalizeSlug = slug => {
   return startingSlash || endingSlash ? normalizeSlug(slug) : slug
 }
 
-export const postSubtitle = post => {
-  return [post.City, getDateStr(post.Date)].filter(x => x).join(' - ')
-}
-
 export const loadTweet = async url => {
   const tweetId = url.split('/')[5].split('?')[0]
   const res = await fetch(

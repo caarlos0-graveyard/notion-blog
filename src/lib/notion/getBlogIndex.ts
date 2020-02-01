@@ -52,7 +52,7 @@ export default async function getBlogIndex(previews = true) {
     }
 
     // only get 10 most recent post's previews
-    const postsKeys = Object.keys(postsTable).splice(0, 3)
+    const postsKeys = Object.keys(postsTable).splice(0, 5)
 
     const sema = new Sema(3, { capacity: postsKeys.length })
 
@@ -70,7 +70,9 @@ export default async function getBlogIndex(previews = true) {
     }
 
     if (isProd) {
-      writeFile(cacheFile, JSON.stringify(postsTable), 'utf8').catch(() => {})
+      writeFile(cacheFile, JSON.stringify(postsTable), 'utf8').catch(e => {
+        console.warn(e)
+      })
     }
   }
 

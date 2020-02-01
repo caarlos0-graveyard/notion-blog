@@ -134,13 +134,7 @@ pre {
   white-space: pre;
 }
 
-pre code {
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-pre :global(code),
-pre > code {
+pre :global(code) {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 }

@@ -3,12 +3,13 @@ import Head from 'next/head'
 import Header from '../../components/header'
 import Heading from '../../components/heading'
 import components from '../../components/dynamic'
+import ExtLink from '../../components/ext-link'
 import ReactJSXParser from '@zeit/react-jsx-parser'
 import blogStyles from '../../styles/blog.module.css'
 import { textBlock } from '../../lib/notion/renderers'
 import getPageData from '../../lib/notion/getPageData'
 import getBlogIndex from '../../lib/notion/getBlogIndex'
-import { getBlogLink, postSubtitle, loadTweet } from '../../lib/blog-helpers'
+import { getBlogLink, getDateStr, loadTweet } from '../../lib/blog-helpers'
 import YouTube from 'react-youtube'
 
 // Get the data for each blog post
@@ -21,7 +22,7 @@ export async function unstable_getStaticProps({ params: { slug } }) {
     console.log(`Failed to find post for slug: ${slug}`)
     return {
       props: {
-        redirect: '/blog',
+        redirect: '/posts',
       },
       revalidate: 5,
     }
@@ -85,7 +86,12 @@ const RenderPost = ({ post, tweets, redirect }) => {
       <div className={blogStyles.post}>
         <h1>{post.Page || ''}</h1>
 
-        <div className={blogStyles.posted}>{postSubtitle(post)}</div>
+        <div className={blogStyles.posted}>
+          <ExtLink href={`https://www.google.com.br/maps/search/${post.City}`}>
+            {post.City}
+          </ExtLink>{' '}
+          · {getDateStr(post.Date)}
+        </div>
 
         <hr />
 

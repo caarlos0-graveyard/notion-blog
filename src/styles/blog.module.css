@@ -53,6 +53,7 @@
   /* box-shadow: 0 8px 8px rgba(0, 0, 0, 0.3); */
   max-width: 100%;
   display: block;
+  border-radius: var(--radius);
 }
 
 .posted {

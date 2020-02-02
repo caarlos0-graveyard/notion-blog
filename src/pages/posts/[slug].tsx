@@ -12,7 +12,6 @@ export async function unstable_getStaticProps({ params: { slug } }) {
   const post = await loadPage(slug, 0)
 
   if (!post) {
-    console.log(`Failed to find page for slug: ${slug}`)
     return {
       props: {
         redirect: '/posts',

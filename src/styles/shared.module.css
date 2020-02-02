@@ -25,3 +25,11 @@
   box-shadow: #707880 0px 0px 5px;
   border-radius: 100%;
 }
+
+.caption > p {
+  color: var(--accents-3);
+  font-size: 0.75rem;
+  text-align: center;
+  line-height: 1.5;
+  padding-bottom: 2rem;
+}

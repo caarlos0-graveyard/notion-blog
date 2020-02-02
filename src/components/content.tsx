@@ -5,6 +5,7 @@ import ExtLink from './ext-link'
 import ReactJSXParser from '@zeit/react-jsx-parser'
 import { textBlock } from '../lib/notion/renderers'
 import YouTube from 'react-youtube'
+import sharedStyles from '../styles/shared.module.css'
 
 const listTypes = new Set(['bulleted_list', 'numbered_list'])
 
@@ -135,6 +136,13 @@ export default props => {
                 style={{ width }}
               />
             )
+            if (properties.caption) {
+              toRender.push(
+                <div className={sharedStyles.caption}>
+                  {textBlock(properties.caption, false, id)}
+                </div>
+              )
+            }
             break
           }
           case 'header':

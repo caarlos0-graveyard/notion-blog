@@ -1,1 +1,1 @@
-sync to https://github.com/ijjk/notion-blog/commit/625463ea822f4acf65c79088a34a4eefc7909c4f
+sync to https://github.com/ijjk/notion-blog/commit/ee76ca0e6bdd7a7369a6d16ae47eba8536056b84

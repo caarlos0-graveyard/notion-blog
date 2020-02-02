@@ -6,6 +6,7 @@
 .layout {
   max-width: calc(600px + 10%);
   margin: 0 auto;
+  padding: 0 2%;
 }
 
 .layout img {

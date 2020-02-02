@@ -1,10 +1,9 @@
 import getBlogIndex from './getBlogIndex'
 import getPageData from './getPageData'
 
-export default async function loadPage(slug, idx) {
-  const table = await getBlogIndex(false, idx)
+export default async function loadPage(slug, idx, previews) {
+  const table = await getBlogIndex(previews, idx)
   if (!(slug in table)) {
-    console.log(`Failed to find page for slug: ${slug}`)
     return
   }
 

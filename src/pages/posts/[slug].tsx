@@ -9,9 +9,10 @@ import loadPage from '../../lib/notion/loadPage'
 import { loadTweets, getBlogLink, getDateStr } from '../../lib/blog-helpers'
 
 export async function unstable_getStaticProps({ params: { slug } }) {
-  const post = await loadPage(slug, 0)
+  const post = await loadPage(slug, 0, true)
 
   if (!post) {
+    console.log(`Failed to find post for slug: ${slug}`)
     return {
       props: {
         redirect: '/posts',

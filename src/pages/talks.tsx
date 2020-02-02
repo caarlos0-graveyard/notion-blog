@@ -7,7 +7,17 @@ import loadPage from '../lib/notion/loadPage'
 import sharedStyles from '../styles/shared.module.css'
 
 export async function unstable_getStaticProps() {
-  const page = await loadPage('talks', 1)
+  const page = await loadPage('talks', 1, false)
+
+  if (!page) {
+    console.log(`Failed to find talks page`)
+    return {
+      props: {
+        redirect: '/',
+      },
+      revalidate: 10,
+    }
+  }
 
   return {
     props: {

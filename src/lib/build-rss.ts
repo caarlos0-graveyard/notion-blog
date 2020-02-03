@@ -12,6 +12,8 @@ process.env.USE_CACHE = 'true'
 
 // constants
 const NOW = new Date().toJSON()
+// TODO: should this be an env maybe?
+const BASEURL = 'https://carlosbecker.com'
 
 function decode(string) {
   return string
@@ -39,7 +41,7 @@ function mapToEntry(post) {
               : post.content
           )}
           <p class="more">
-            <a href="${post.link}">Read more</a>
+            <a href="${BASEURL}/${post.link}">Read more</a>
           </p>
         </div>
       </content>

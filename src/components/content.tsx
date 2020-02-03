@@ -103,7 +103,6 @@ export default props => {
               source.indexOf('youtu.be') != -1
             ) {
               // TODO: extremely fragile
-              console.warn(`is this really an youtube video? ${source}`)
               toRender.push(<YouTube videoId={source.split('/')[3]} />)
               break
             }

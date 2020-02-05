@@ -18,17 +18,18 @@ const ogImageUrl = 'https://carlosbecker.dev/og-image.png'
 const defaultDescription =
   "Carlos Alexandro Becker's Blog about software development and stuff"
 
-export default ({ titlePre = '', description = defaultDescription }) => {
+export default ({ titlePre = '', description = '' }) => {
   const { asPath } = useRouter()
 
   const title = [titlePre, 'Carlos Becker']
     .filter(s => s.length > 0)
     .join(' | ')
+  const desc = description === '' ? defaultDescription : description
   return (
     <header className={styles.header}>
       <Head>
         <title>{title}</title>
-        <meta name="description" content={description} />
+        <meta name="description" content={desc} />
         <meta name="og:title" content={title} />
         <meta property="og:image" content={ogImageUrl} />
         <meta name="twitter:site" content="@caarlos0" />

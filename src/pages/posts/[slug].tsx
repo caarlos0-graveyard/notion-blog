@@ -6,7 +6,12 @@ import ExtLink from '../../components/ext-link'
 import blogStyles from '../../styles/blog.module.css'
 import getBlogIndex from '../../lib/notion/getBlogIndex'
 import loadPage from '../../lib/notion/loadPage'
-import { loadTweets, getBlogLink, getDateStr } from '../../lib/blog-helpers'
+import {
+  loadTweets,
+  getBlogLink,
+  getDateStr,
+  extractPostPreview,
+} from '../../lib/blog-helpers'
 
 export async function unstable_getStaticProps({ params: { slug } }) {
   const post = await loadPage(slug, 0, true)
@@ -52,7 +57,10 @@ const RenderPost = ({ post, tweets, redirect }) => {
 
   return (
     <>
-      <Header titlePre={post.Page} />
+      <Header
+        titlePre={post.Page}
+        description={extractPostPreview(post.content)}
+      />
       <div className={blogStyles.post}>
         <h1>{post.Page || ''}</h1>
 

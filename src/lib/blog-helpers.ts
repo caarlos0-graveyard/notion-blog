@@ -1,6 +1,4 @@
 import fetch from 'node-fetch'
-import getPageData from '../lib/notion/getPageData'
-import getBlogIndex from '../lib/notion/getBlogIndex'
 
 export const getBlogLink = (slug: string) => {
   return `/posts/${slug}`
@@ -53,4 +51,24 @@ export const loadTweets = async page => {
     }
   }
   return tweets
+}
+
+const nonPreviewTypes = new Set(['editor', 'page', 'collection_view'])
+
+export const extractPostPreview = blocks => {
+  let dividerIndex = 0
+  for (let i = 0; i < blocks.length; i++) {
+    if (blocks[i].value.type === 'divider') {
+      dividerIndex = i
+      break
+    }
+  }
+
+  return blocks
+    .splice(0, dividerIndex)
+    .filter(
+      ({ value: { type, properties } }: any) =>
+        !nonPreviewTypes.has(type) && properties
+    )
+    .map((block: any) => block.value.properties.title)
 }

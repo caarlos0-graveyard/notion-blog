@@ -20,6 +20,7 @@ export default props => {
       children: React.ReactFragment
     }
   } = {}
+  let firstDivider = false
 
   return (
     <>
@@ -89,6 +90,12 @@ export default props => {
         switch (type) {
           case 'page':
           case 'divider':
+            if (!firstDivider) {
+              // first divider is the preview one
+              firstDivider = true
+              break
+            }
+            toRender.push(<hr />)
             break
           case 'text':
             if (properties) {

@@ -60,11 +60,11 @@ export const extractPostPreview = blocks => {
   for (let i = 0; i < blocks.length; i++) {
     if (blocks[i].value.type === 'divider') {
       dividerIndex = i
-      break
     }
   }
 
   return blocks
+    .slice()
     .splice(0, dividerIndex)
     .filter(
       ({ value: { type, properties } }: any) =>

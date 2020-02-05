@@ -71,7 +71,9 @@ export default async function getBlogIndex(
     }
 
     if (useCache) {
-      writeFile(cacheFile, JSON.stringify(postsTable), 'utf8').catch(() => {})
+      writeFile(cacheFile, JSON.stringify(postsTable), 'utf8').catch(e =>
+        console.error(e)
+      )
     }
   }
 

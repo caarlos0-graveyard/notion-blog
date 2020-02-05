@@ -55,12 +55,10 @@ const RenderPost = ({ post, tweets, redirect }) => {
     )
   }
 
+  const description = extractPostPreview(post.content)
   return (
     <>
-      <Header
-        titlePre={post.Page}
-        description={extractPostPreview(post.content)}
-      />
+      <Header titlePre={post.Page} description={description} />
       <div className={blogStyles.post}>
         <h1>{post.Page || ''}</h1>
 

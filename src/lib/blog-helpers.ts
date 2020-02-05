@@ -65,8 +65,7 @@ export const extractPostPreview = blocks => {
   }
 
   return blocks
-    .slice()
-    .splice(0, dividerIndex)
+    .slice(0, dividerIndex)
     .filter(
       ({ value: { type, properties } }: any) =>
         !nonPreviewTypes.has(type) && properties

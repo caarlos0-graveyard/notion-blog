@@ -53,7 +53,7 @@ export default async function getBlogIndex(
     }
 
     // only get 10 most recent post's previews
-    const postsKeys = Object.keys(postsTable).splice(0, 5)
+    const postsKeys = Object.keys(postsTable).slice(0, 3)
 
     const sema = new Sema(3, { capacity: postsKeys.length })
 

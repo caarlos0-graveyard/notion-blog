@@ -28,7 +28,7 @@ const contacts = [
   {
     Comp: Envelope,
     alt: 'envelope icon',
-    link: 'mailto:hi@carlosbecker.com?subject=Hi!',
+    link: 'mailto:hi@carlosbecker.dev?subject=Hi!',
   },
 ]
 

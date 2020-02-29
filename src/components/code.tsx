@@ -1,36 +1,13 @@
-import Prism from 'prismjs'
+import SyntaxHighlighter from 'react-syntax-highlighter'
+import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/hljs'
+
+// node_modules/react-syntax-highlighter/dist/cjs/styles/hljs/dracula.js
 
 const Code = ({ children, language = 'javascript' }) => {
   return (
-    <>
-      <pre>
-        <code
-          dangerouslySetInnerHTML={{
-            __html: Prism.highlight(
-              children,
-              Prism.languages[language.toLowerCase()] ||
-                Prism.languages.javascript
-            ),
-          }}
-        />
-      </pre>
-
-      <style jsx>{`
-        pre {
-          tab-size: 2;
-        }
-
-        code {
-          display: block;
-          padding: 0.8rem;
-          line-height: 1.5;
-          background: rgb(40, 41, 54);
-          font-size: 0.75rem;
-          border-radius: var(--radius);
-          color: #ccc;
-        }
-      `}</style>
-    </>
+    <SyntaxHighlighter language={language.toLowerCase()} style={dracula}>
+      {children}
+    </SyntaxHighlighter>
   )
 }
 

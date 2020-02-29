@@ -2,7 +2,6 @@ import React from 'react'
 import Heading from './heading'
 import components from './dynamic'
 import ExtLink from './ext-link'
-import ReactJSXParser from '@zeit/react-jsx-parser'
 import { textBlock } from '../lib/notion/renderers'
 import YouTube from 'react-youtube'
 import sharedStyles from '../styles/shared.module.css'
@@ -165,26 +164,11 @@ export default props => {
               const content = properties.title[0][0]
               const language = properties.language[0][0]
 
-              if (language === 'LiveScript') {
-                // this requires the DOM for now
-                toRender.push(
-                  <ReactJSXParser
-                    key={id}
-                    jsx={content}
-                    components={components}
-                    componentsOnly={false}
-                    renderInpost={false}
-                    allowUnknownElements={true}
-                    blacklistedTags={['script', 'style']}
-                  />
-                )
-              } else {
-                toRender.push(
-                  <components.Code key={id} language={language || ''}>
-                    {content}
-                  </components.Code>
-                )
-              }
+              toRender.push(
+                <components.Code key={id} language={language || ''}>
+                  {content}
+                </components.Code>
+              )
             }
             break
           }

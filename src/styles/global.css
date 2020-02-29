@@ -139,8 +139,8 @@ pre > code {
 }
 
 code {
-  background: #f1f1f1;
   font-size: 0.8rem;
+  background: #f1f1f1;
   padding: 0.2rem;
   border-radius: var(--radius);
   font-family: var(--font-mono);

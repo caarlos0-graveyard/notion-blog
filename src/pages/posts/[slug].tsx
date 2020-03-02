@@ -42,7 +42,6 @@ export async function getStaticPaths() {
   const postsTable = await getBlogIndex()
   return {
     paths: Object.keys(postsTable).map(slug => getBlogLink(slug)),
-    // We want to allow new blog posts after a deploy happens:
     fallback: true,
   }
 }

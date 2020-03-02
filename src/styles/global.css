@@ -128,9 +128,17 @@ li {
   line-height: 1.7;
 }
 
+pre {
+  white-space: pre;
+}
+
 pre > code {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
+  display: block;
+  background: #2b2b2b;
+  font-size: 0.75rem;
+  line-height: 1.5;
 }
 
 code {
@@ -139,13 +147,6 @@ code {
   padding: 0.2rem;
   border-radius: var(--radius);
   font-family: var(--font-mono);
-}
-
-pre > code {
-  display: block;
-  background: #2b2b2b;
-  font-size: 0.75rem;
-  line-height: 1.5;
 }
 
 @media (max-width: 600px) {

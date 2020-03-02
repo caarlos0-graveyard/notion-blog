@@ -2,6 +2,7 @@ import React from 'react'
 import Head from 'next/head'
 import Header from '../../components/header'
 import Content from '../../components/content'
+import ErrorPage from 'next/error'
 import ExtLink from '../../components/ext-link'
 import blogStyles from '../../styles/blog.module.css'
 import getBlogIndex from '../../lib/notion/getBlogIndex'
@@ -46,8 +47,7 @@ export async function unstable_getStaticPaths() {
 }
 
 const RenderPost = ({ post, tweets, redirect }) => {
-  // XXX: why sometimes post is not here?
-  if (redirect || !post) {
+  if (redirect) {
     return (
       <>
         <Head>
@@ -56,6 +56,11 @@ const RenderPost = ({ post, tweets, redirect }) => {
         </Head>
       </>
     )
+  }
+
+  // XXX: why sometimes post is not here?
+  if (!post) {
+    return <ErrorPage statusCode={404} />
   }
 
   const description = extractPostPreview(post.content)

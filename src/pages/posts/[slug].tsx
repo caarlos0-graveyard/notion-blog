@@ -13,7 +13,7 @@ import {
   extractPostPreview,
 } from '../../lib/blog-helpers'
 
-export async function unstable_getStaticProps({ params: { slug } }) {
+export async function getStaticProps({ params: { slug } }) {
   const post = await loadPage(slug, 0, true)
 
   if (!post) {
@@ -38,10 +38,12 @@ export async function unstable_getStaticProps({ params: { slug } }) {
 }
 
 // Return our list of blog posts to prerender
-export async function unstable_getStaticPaths() {
+export async function getStaticPaths() {
   const postsTable = await getBlogIndex()
   return {
     paths: Object.keys(postsTable).map(slug => getBlogLink(slug)),
+    // We want to allow new blog posts after a deploy happens:
+    fallback: true,
   }
 }
 

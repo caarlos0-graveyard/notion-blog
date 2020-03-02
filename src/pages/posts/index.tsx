@@ -8,7 +8,7 @@ import { getBlogLink, postIsReady, getDateStr } from '../../lib/blog-helpers'
 import { textBlock } from '../../lib/notion/renderers'
 import getBlogIndex from '../../lib/notion/getBlogIndex'
 
-export async function unstable_getStaticProps() {
+export async function getStaticProps() {
   const postsTable = await getBlogIndex()
 
   const posts: any[] = Object.keys(postsTable)

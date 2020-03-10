@@ -1,5 +1,5 @@
 import React from 'react'
-import Head from 'next/head'
+import ErrorPage from 'next/error'
 import Header from '../components/header'
 import Content from '../components/content'
 import loadPage from '../lib/notion/loadPage'
@@ -28,6 +28,10 @@ export async function getStaticProps() {
 }
 
 const RenderPage = ({ page }) => {
+  if (!page) {
+    return <ErrorPage statusCode={404} />
+  }
+
   return (
     <>
       <Header titlePre={page.Page} />

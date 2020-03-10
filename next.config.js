@@ -45,7 +45,7 @@ module.exports = {
   target: 'experimental-serverless-trace',
 
   webpack(cfg, { dev, isServer }) {
-    // only compile build-rss in production server build
+    // only compile build-xmls in production server build
     if (dev || !isServer) return cfg
 
     // we're in build mode so enable shared caching for Notion data
@@ -56,7 +56,7 @@ module.exports = {
       const entries = {
         ...(await originalEntry()),
       }
-      entries['./scripts/build-rss.js'] = './src/lib/build-rss.ts'
+      entries['./scripts/build-xmls.js'] = './src/lib/build-xmls.ts'
       return entries
     }
     return cfg

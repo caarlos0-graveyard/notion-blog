@@ -1,5 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
+import ErrorPage from 'next/error'
 import Header from '../../components/header'
 import Content from '../../components/content'
 import ExtLink from '../../components/ext-link'
@@ -47,8 +48,7 @@ export async function getStaticPaths() {
 }
 
 const RenderPost = ({ post, tweets, redirect }) => {
-  // XXX: why sometimes post is not here?
-  if (redirect || !post) {
+  if (redirect) {
     return (
       <>
         <Head>
@@ -57,6 +57,10 @@ const RenderPost = ({ post, tweets, redirect }) => {
         </Head>
       </>
     )
+  }
+
+  if (!post) {
+    return <ErrorPage statusCode={404} />
   }
 
   const description = extractPostPreview(post.content)

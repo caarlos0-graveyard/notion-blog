@@ -27,3 +27,5 @@ yarn-error.log*
 .blog_index_data
 .blog_index_data_previews
 public/index.xml
+
+.now

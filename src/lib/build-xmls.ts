@@ -24,7 +24,7 @@ function decode(string) {
     .replace(/'/g, '&apos;')
 }
 
-function mapToEntry(post) {
+function mapToRSSEntry(post) {
   return `
     <entry>
       <id>${post.link}</id>
@@ -41,7 +41,7 @@ function mapToEntry(post) {
               : post.content
           )}
           <p class="more">
-            <a href="${BASEURL}/${post.link}">Read more</a>
+            <a href="${BASEURL}${post.link}">Read more</a>
           </p>
         </div>
       </content>
@@ -49,12 +49,21 @@ function mapToEntry(post) {
     </entry>`
 }
 
+function mapToSitemapEntry(post) {
+  return `<url>
+    <loc>${BASEURL}${post.link}</loc>
+    <lastmod>${new Date(post.date).toJSON()}</lastmod>
+    <priority>0.64</priority>
+    <changefreq>hourly</changefreq>
+  </url>`
+}
+
 function concat(total, item) {
   return total + item
 }
 
 function createRSS(blogPosts = []) {
-  const postsString = blogPosts.map(mapToEntry).reduce(concat, '')
+  const postsString = blogPosts.map(mapToRSSEntry).reduce(concat, '')
 
   return `<?xml version="1.0" encoding="utf-8"?>
   <feed xmlns="http://www.w3.org/2005/Atom">
@@ -65,6 +74,43 @@ function createRSS(blogPosts = []) {
     <updated>${NOW}</updated>
     <id>Blog</id>${postsString}
   </feed>`
+}
+
+function createSitemap(blogPosts = []) {
+  const postsString = blogPosts.map(mapToSitemapEntry).reduce(concat, '')
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+  http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  <url>
+    <loc>${BASEURL}/</loc>
+    <lastmod>${NOW}</lastmod>
+    <priority>1.00</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>${BASEURL}/posts</loc>
+    <lastmod>${NOW}</lastmod>
+    <priority>0.80</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>${BASEURL}/talks</loc>
+    <lastmod>${NOW}</lastmod>
+    <priority>0.80</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  <url>
+    <loc>${BASEURL}/about</loc>
+    <lastmod>${NOW}</lastmod>
+    <priority>0.80</priority>
+    <changefreq>hourly</changefreq>
+  </url>
+  ${postsString}
+</urlset>`
 }
 
 async function main() {
@@ -84,9 +130,13 @@ async function main() {
     post.date = post.Date
   })
 
-  const outputPath = './public/index.xml'
-  await writeFile(resolve(outputPath), createRSS(blogPosts))
-  console.log(`Atom feed file generated at \`${outputPath}\``)
+  const rssOutputPath = './public/index.xml'
+  await writeFile(resolve(rssOutputPath), createRSS(blogPosts))
+  console.log(`Atom feed file generated at \`${rssOutputPath}\``)
+
+  const sitemapOutputPath = './public/sitemap.xml'
+  await writeFile(resolve(sitemapOutputPath), createSitemap(blogPosts))
+  console.log(`Sitemap file generated at \`${sitemapOutputPath}\``)
 }
 
 main().catch(error => console.error(error))

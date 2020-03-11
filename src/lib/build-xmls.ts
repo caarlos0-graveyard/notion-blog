@@ -53,8 +53,6 @@ function mapToSitemapEntry(post) {
   return `<url>
     <loc>${BASEURL}${post.link}</loc>
     <lastmod>${new Date(post.date).toJSON()}</lastmod>
-    <priority>0.64</priority>
-    <changefreq>hourly</changefreq>
   </url>`
 }
 
@@ -88,26 +86,18 @@ function createSitemap(blogPosts = []) {
   <url>
     <loc>${BASEURL}/</loc>
     <lastmod>${NOW}</lastmod>
-    <priority>1.00</priority>
-    <changefreq>hourly</changefreq>
   </url>
   <url>
     <loc>${BASEURL}/posts</loc>
     <lastmod>${NOW}</lastmod>
-    <priority>0.80</priority>
-    <changefreq>hourly</changefreq>
   </url>
   <url>
     <loc>${BASEURL}/talks</loc>
     <lastmod>${NOW}</lastmod>
-    <priority>0.80</priority>
-    <changefreq>hourly</changefreq>
   </url>
   <url>
     <loc>${BASEURL}/about</loc>
     <lastmod>${NOW}</lastmod>
-    <priority>0.80</priority>
-    <changefreq>hourly</changefreq>
   </url>
   ${postsString}
 </urlset>`

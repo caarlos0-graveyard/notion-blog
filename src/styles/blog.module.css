@@ -50,17 +50,11 @@
   color: #777;
 }
 
-.post {
-  max-width: calc(600px + 10%);
-  margin: 0 auto;
-  padding: 0 2%;
-}
-
 .post p {
   overflow-wrap: break-word;
   word-break: break-word;
   text-rendering: optimizelegibility;
-  /* text-align: justify; */
+  text-align: justify;
 }
 
 .post :global(hr) {

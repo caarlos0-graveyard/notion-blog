@@ -5,6 +5,7 @@ import Header from '../../components/header'
 import Content from '../../components/content'
 import ExtLink from '../../components/ext-link'
 import blogStyles from '../../styles/blog.module.css'
+import sharedStyles from '../../styles/shared.module.css'
 import getBlogIndex from '../../lib/notion/getBlogIndex'
 import loadPage from '../../lib/notion/loadPage'
 import {
@@ -67,7 +68,7 @@ const RenderPost = ({ post, tweets, redirect }) => {
   return (
     <>
       <Header titlePre={post.Page} description={description} />
-      <div className={blogStyles.post}>
+      <div className={`${blogStyles.post} ${sharedStyles.layout}`}>
         <h1>{post.Page || ''}</h1>
 
         <div className={blogStyles.posted}>

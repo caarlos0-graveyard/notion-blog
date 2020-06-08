@@ -46,8 +46,9 @@ export default async function getBlogIndex(
       const tableBlock = tableBlocks[collection_index]
       postsTable = await getTableData(tableBlock, true)
     } catch (err) {
-      console.warn(
-        `Failed to load Notion posts, attempting to auto create table`
+      console.error(
+        `Failed to load Notion posts, attempting to auto create table`,
+        err
       )
       return {}
     }

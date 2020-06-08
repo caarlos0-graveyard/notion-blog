@@ -129,4 +129,7 @@ async function main() {
   console.log(`Sitemap file generated at \`${sitemapOutputPath}\``)
 }
 
-main().catch(error => console.error(error))
+main().catch(error => {
+  console.error(error)
+  process.exit(1)
+})

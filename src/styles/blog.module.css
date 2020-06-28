@@ -45,6 +45,10 @@
   margin: 0 auto;
 }
 
+.post :global(.underline) {
+  border-bottom: 1px solid var(--accents-3);
+}
+
 .posted {
   margin: 0.5em 0;
   color: #777;

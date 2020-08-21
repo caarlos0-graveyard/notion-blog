@@ -15,7 +15,7 @@ export async function getStaticProps() {
       props: {
         redirect: '/',
       },
-      unstable_revalidate: 60,
+      revalidate: 60,
     }
   }
 
@@ -23,7 +23,7 @@ export async function getStaticProps() {
     props: {
       page,
     },
-    unstable_revalidate: 60,
+    revalidate: 60,
   }
 }
 

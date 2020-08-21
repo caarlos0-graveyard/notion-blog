@@ -32,7 +32,7 @@ const contacts = [
   },
 ]
 
-export default () => (
+const Top = () => (
   <>
     <Header titlePre="Home" />
     <div
@@ -64,3 +64,5 @@ export default () => (
     </div>
   </>
 )
+
+export default Top

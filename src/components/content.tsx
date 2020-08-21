@@ -8,7 +8,7 @@ import sharedStyles from '../styles/shared.module.css'
 
 const listTypes = new Set(['bulleted_list', 'numbered_list'])
 
-export default props => {
+const Content = props => {
   let listTagName: string | null = null
   let listLastId: string | null = null
   let listMap: {
@@ -219,3 +219,5 @@ export default props => {
     </>
   )
 }
+
+export default Content

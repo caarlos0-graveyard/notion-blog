@@ -1,6 +1,6 @@
 import '../styles/global.css'
 
-export default ({ Component, pageProps }) => (
+const App = ({ Component, pageProps }) => (
   <>
     <Component {...pageProps} />
     <footer>
@@ -8,3 +8,5 @@ export default ({ Component, pageProps }) => (
     </footer>
   </>
 )
+
+export default App

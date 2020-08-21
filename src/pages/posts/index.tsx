@@ -26,11 +26,11 @@ export async function getStaticProps() {
     props: {
       posts,
     },
-    unstable_revalidate: 60,
+    revalidate: 60,
   }
 }
 
-export default ({ posts = [] }) => {
+const Index = ({ posts = [] }) => {
   return (
     <>
       <Header titlePre="Blog" />
@@ -60,3 +60,5 @@ export default ({ posts = [] }) => {
     </>
   )
 }
+
+export default Index

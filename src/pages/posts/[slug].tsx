@@ -44,7 +44,7 @@ export async function getStaticPaths() {
   const postsTable = await getBlogIndex()
   return {
     paths: Object.keys(postsTable).map(slug => getBlogLink(slug)),
-    fallback: true,
+    fallback: false,
   }
 }
 
